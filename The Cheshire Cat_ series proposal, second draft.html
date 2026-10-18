@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Cheshire Cat: series proposal, second draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..650;1,8..60,400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f0f5; --surface:#e7e3ee; --ink:#1c1f33; --muted:#575b73; --rule:#d2cddc;
+  --pink:#bf3e78; --aqua:#1b7e79; --idea:#8a5a0e; --plum:#6b3a78;
+  --cat:#2a2338; --catline:#2a2338; --grin:#e8a93f;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --text:"Source Serif 4", "Iowan Old Style", Georgia, serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141a2b; --surface:#1c2339; --ink:#f3ead8; --muted:#a6abc2; --rule:#2c3452;
+    --pink:#ee7cad; --aqua:#74d7d0; --idea:#f6d79a; --plum:#b98fca;
+    --cat:#31254a; --catline:#b98fca; --grin:#f6d79a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141a2b; --surface:#1c2339; --ink:#f3ead8; --muted:#a6abc2; --rule:#2c3452;
+  --pink:#ee7cad; --aqua:#74d7d0; --idea:#f6d79a; --plum:#b98fca;
+  --cat:#31254a; --catline:#b98fca; --grin:#f6d79a;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:1.0625rem;line-height:1.62;font-optical-sizing:auto;-webkit-text-size-adjust:100%}
+img,svg{max-width:100%}
+a{color:var(--aqua);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:4px}
+.wrap{max-width:42rem;margin:0 auto;padding:0 1.25rem}
+.wide{max-width:52rem;margin:0 auto;padding:0 1.25rem}
+
+/* Hero */
+.hero{padding-top:3.5rem;padding-bottom:2.5rem}
+.hero .kicker{font-family:var(--display);font-size:.95rem;color:var(--muted);margin:0 0 1.25rem}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3.2rem,15vw,6.6rem);line-height:.86;letter-spacing:-.035em;margin:0;font-variation-settings:"opsz" 96}
+.hero h1 span{display:block}
+.hero-row{display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:end}
+@media (min-width:720px){.hero-row{grid-template-columns:1.35fr 1fr}}
+.cat-btn{background:none;border:0;padding:0;cursor:pointer;width:100%;max-width:300px;justify-self:center;display:block}
+.cat-btn svg{display:block;width:100%}
+.hero .lede{font-size:1.3rem;line-height:1.45;margin:1.75rem 0 0;max-width:34rem}
+.hero .meta{font-family:var(--display);font-size:.9rem;color:var(--muted);margin-top:1.5rem}
+.hint{font-family:var(--display);font-size:.8rem;color:var(--muted);text-align:center;margin:.4rem 0 0}
+
+/* Cat drawing */
+.cat .head{fill:var(--cat);stroke:var(--catline);stroke-width:2}
+.cat .head.ghost{fill:none;stroke-dasharray:4 6;opacity:.45}
+.cat .eye{fill:var(--grin)}
+.cat .pupil{fill:var(--cat)}
+.cat .lid{stroke:var(--catline);stroke-width:4;stroke-linecap:round;fill:none}
+.cat .arc{stroke:var(--grin);stroke-width:6;stroke-linecap:round;fill:none}
+.cat .grin{fill:var(--grin);stroke:var(--cat);stroke-width:2}
+.cat .tooth{stroke:var(--cat);stroke-width:2}
+.hero-cat .head,.hero-cat .face{transition:opacity 1.6s ease-in}
+.vanished .hero-cat .head,.vanished .hero-cat .face{opacity:0}
+@media (prefers-reduced-motion:reduce){.hero-cat .head,.hero-cat .face{transition:none}}
+
+/* Sections */
+section{padding:2.75rem 0;border-top:1px solid var(--rule)}
+h2{font-family:var(--display);font-weight:750;font-size:clamp(1.85rem,6vw,2.6rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 1rem;font-variation-settings:"opsz" 60}
+h3{font-family:var(--display);font-weight:700;font-size:1.25rem;line-height:1.2;margin:2rem 0 .5rem}
+p{margin:0 0 1rem}
+.sub{font-size:1.15rem;color:var(--muted);margin-bottom:1.5rem}
+.small{font-size:.92rem;color:var(--muted)}
+em.v{font-style:italic}
+ul.plain{padding-left:1.1rem;margin:0 0 1rem}
+ul.plain li{margin:.35rem 0}
+
+/* Change notes */
+.changes{background:var(--surface);border-radius:14px;padding:1.4rem 1.4rem .6rem;margin-top:.5rem}
+.changes h2{font-size:1.5rem}
+.changes li{margin:.5rem 0}
+
+/* Steps */
+ol.beats{list-style:none;padding:0;margin:1.5rem 0;counter-reset:b}
+ol.beats li{counter-increment:b;display:grid;grid-template-columns:2.4rem 1fr;gap:.25rem .75rem;padding:.7rem 0;border-bottom:1px solid var(--rule)}
+ol.beats li::before{content:counter(b);font-family:var(--display);font-weight:800;font-size:1.5rem;line-height:1.1;color:var(--plum)}
+ol.beats b{font-family:var(--display);font-weight:700}
+
+/* Formats */
+.formats{display:grid;grid-template-columns:1fr;gap:0;margin:1rem 0}
+.formats div{display:grid;grid-template-columns:7.5rem 1fr;gap:.75rem;padding:.65rem 0;border-bottom:1px solid var(--rule)}
+.formats dt,.formats .k{font-family:var(--display);font-weight:700}
+
+/* Math */
+.math{font-family:var(--text);font-size:1.15rem;text-align:center;background:var(--surface);border-radius:10px;padding:1rem;margin:1.25rem 0;overflow-x:auto;white-space:nowrap}
+.math i{font-style:italic}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .2em}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .2em}
+
+/* Claims */
+.claims{display:grid;gap:.9rem;margin:1.5rem 0}
+.claim{border-left:4px solid var(--rule);padding:.3rem 0 .3rem 1rem}
+.claim h4{font-family:var(--display);font-size:1rem;margin:0 0 .25rem}
+.claim.t{border-color:var(--aqua)} .claim.i{border-color:var(--pink)} .claim.e{border-color:var(--idea)} .claim.b{border-color:var(--plum)}
+.claim p{margin:0}
+
+/* Figures */
+figure{margin:2rem 0}
+.panel{background:var(--surface);border-radius:16px;padding:1.25rem}
+figcaption{font-size:.92rem;color:var(--muted);margin-top:.75rem;line-height:1.5}
+.figtitle{font-family:var(--display);font-weight:700;font-size:1.1rem;margin:0 0 .75rem}
+svg .grid{stroke:var(--rule);stroke-width:1}
+svg .axis{stroke:var(--muted);stroke-width:1}
+svg .threshold{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 5}
+svg .tick{fill:var(--muted);font:21px var(--display)}
+svg .axlab{fill:var(--muted);font:22px var(--display)}
+svg .lab{fill:var(--ink);font:600 23px var(--display)}
+svg .aqua-t{fill:var(--aqua)} svg .pink-t{fill:var(--pink)}
+svg .curve{fill:none;stroke-width:3.5;stroke-linejoin:round}
+svg .curve.aqua{stroke:var(--aqua)} svg .curve.pink{stroke:var(--pink)}
+svg .dot-aqua{fill:var(--aqua)} svg .dot-pink{fill:var(--pink)}
+svg .edge{stroke:var(--muted);stroke-width:1.6;opacity:.6}
+svg .n-pink{fill:var(--pink)} svg .n-aqua{fill:var(--aqua)}
+svg .track{fill:var(--rule);rx:4}
+svg .fill-pink{fill:var(--pink)} svg .fill-aqua{fill:var(--aqua)}
+
+/* Interactive */
+.demo{display:grid;grid-template-columns:1fr;gap:1rem;align-items:center}
+@media (min-width:640px){.demo{grid-template-columns:220px 1fr}}
+#star{width:100%;max-width:220px;justify-self:center}
+#star .e{stroke:var(--muted);stroke-width:1.5;opacity:.7}
+#star .hub{fill:var(--pink)} #star .leaf{fill:var(--aqua)}
+.bars{display:grid;gap:.85rem}
+.bar .row{display:flex;justify-content:space-between;gap:1rem;font-family:var(--display);font-size:.92rem}
+.bar .row b{font-variant-numeric:tabular-nums}
+.bar .track{height:14px;background:var(--rule);border-radius:7px;overflow:hidden;margin-top:.3rem}
+.bar .fill{height:100%;border-radius:7px;transition:width .25s ease}
+@media (prefers-reduced-motion:reduce){.bar .fill{transition:none}}
+.f1{background:var(--aqua)} .f2{background:var(--pink)} .f3{background:var(--plum)}
+.slider{margin-top:1.25rem;font-family:var(--display)}
+.slider label{display:flex;justify-content:space-between;font-size:.95rem}
+.slider input{width:100%;accent-color:var(--pink);margin-top:.5rem}
+
+/* Shot map */
+.shots{margin:1.25rem 0}
+.shot{display:grid;grid-template-columns:4.6rem 1fr;gap:.25rem 1rem;padding:.9rem 0;border-bottom:1px solid var(--rule)}
+.shot .t{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;color:var(--plum)}
+.shot .pic{margin:0}
+.shot .vo{margin:.4rem 0 0;font-style:italic}
+.shot .note{margin:.35rem 0 0;font-size:.9rem;color:var(--muted)}
+
+/* Slate */
+.slate{list-style:none;padding:0;margin:1.25rem 0;counter-reset:ep}
+.slate li{counter-increment:ep;display:grid;grid-template-columns:2.6rem 1fr;gap:0 .9rem;padding:1.1rem 0;border-bottom:1px solid var(--rule)}
+.slate li::before{content:counter(ep,decimal-leading-zero);font-family:var(--display);font-weight:800;font-size:1.35rem;color:var(--muted);line-height:1.2}
+.slate li.poc::before{color:var(--pink)}
+.slate h3{margin:0 0 .3rem;font-size:1.15rem}
+.slate p{margin:.15rem 0;font-size:.97rem}
+.tag{display:inline-block;font-family:var(--display);font-size:.8rem;font-weight:600;border-radius:999px;padding:.12rem .6rem;margin:.35rem .35rem 0 0;border:1.5px solid currentColor}
+.tag.doc{color:var(--aqua)} .tag.pub{color:var(--idea)} .tag.math{color:var(--plum)} .tag.poc{color:var(--pink)}
+
+/* Cat states */
+.states{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+@media (min-width:640px){.states{grid-template-columns:repeat(4,1fr)}}
+.state{margin:0;text-align:center}
+.state svg{width:100%;max-width:150px}
+.state figcaption{font-family:var(--display);font-size:.85rem;margin-top:.25rem}
+
+/* Weeks */
+.weeks{margin:1rem 0}
+.week{display:grid;grid-template-columns:5rem 1fr;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--rule)}
+.week b{font-family:var(--display)}
+
+/* Sources */
+ol.refs{padding-left:1.4rem;font-size:.93rem}
+ol.refs li{margin:.55rem 0;overflow-wrap:anywhere}
+
+footer{padding:2.5rem 0 3rem;border-top:1px solid var(--rule);font-family:var(--display);font-size:.9rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="wrap hero" id="top">
+  <p class="kicker">Series proposal, second draft. Working title.</p>
+  <div class="hero-row">
+    <h1><span>The</span><span>Cheshire</span><span>Cat</span></h1>
+    <div>
+      <button class="cat-btn" id="catbtn" aria-label="Make the cat vanish or reappear"><svg viewBox="0 0 200 160" class="cat hero-cat" aria-hidden="true"><path d="M30,95 C30,58 44,42 56,38 L46,8 L86,31 C95,29 105,29 114,31 L154,8 L144,38 C156,42 170,58 170,95 C170,130 140,150 100,150 C60,150 30,130 30,95 Z" class="head"/><g class="face"><ellipse cx="72" cy="76" rx="15" ry="17" class="eye"/><ellipse cx="128" cy="76" rx="15" ry="17" class="eye"/><ellipse cx="72" cy="77" rx="3" ry="13" class="pupil"/><ellipse cx="128" cy="77" rx="3" ry="13" class="pupil"/></g><clipPath id="g0"><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z"/></clipPath><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z" class="grin"/><line x1="52" y1="90" x2="52" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="64" y1="90" x2="64" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="76" y1="90" x2="76" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="88" y1="90" x2="88" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="100" y1="90" x2="100" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="112" y1="90" x2="112" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="124" y1="90" x2="124" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="136" y1="90" x2="136" y2="140" class="tooth" clip-path="url(#g0)"/><line x1="148" y1="90" x2="148" y2="140" class="tooth" clip-path="url(#g0)"/></svg></button>
+      <p class="hint" id="cathint">Tap the cat</p>
+    </div>
+  </div>
+  <p class="lede">Short films about networks, mathematics, and the strange things that happen when people, diseases, and power lines are connected. The math is real, the stories are real, and the cat never lies about which is which.</p>
+  <p class="meta">October 2026. Pilot: “Why do your friends have more friends than you?”</p>
+</header>
+
+<div class="wrap">
+  <div class="changes">
+    <h2>What changed from the first draft</h2>
+    <ul class="plain">
+      <li>The pilot now bridges the theorem to the Harvard study honestly. That study picked random people and asked them to name friends, so the script now shows that sampling rule has its own guarantee, and the pilot figure has a third bar for it.</li>
+      <li>The math moment is one sentence and one equation. The variance term lives in the deep cut.</li>
+      <li>The majority-illusion toy is rebuilt so nobody has just one friend, and its bars report the right number.</li>
+      <li>The branching-process episode moves to slot 02 and joins the proof-of-concept set. It sits closest to the creator’s own epidemic work.</li>
+      <li>Every episode now carries a labeled anchor type. The old rewiring episode becomes a deep cut, and a new episode on how flu travels between cities takes its place.</li>
+      <li>The cat loses its stripes. The grin is the logo.</li>
+      <li>The production plan is sized for one creator, with a throughput test before anyone is hired.</li>
+      <li>Every article in the source list has a checked DOI. One draft URL had a typo, flagged below.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="wrap" id="idea">
+  <h2>The idea</h2>
+  <p class="sub">Take a question anyone can answer, show why the obvious answer can’t be right, and leave the viewer seeing their own world differently.</p>
+  <p>Each film borrows four moves. The question spirals like a Vsauce opener. The mathematics becomes visible the way it does in 3Blue1Brown, so intuition is earned rather than asserted. A documented study or event raises the stakes the way a Vox explainer does. And a small simulation lets the viewer watch the mechanism run, in the spirit of Complexity Explained.</p>
+  <p>The difference is the person making it. A network scientist can hold a short film to research standards: every number traced to a source, every graphic labeled as simulation or measurement, and every claim scoped to what was actually shown.</p>
+  <p><b>Recommendation:</b> make three proof-of-concept shorts (episodes 01 to 03). Commit to the full ten only if the science holds up in review, viewers can state the main idea after one watch, and the second film takes half the time of the first.</p>
+
+  <h3>How an episode moves</h3>
+  <ol class="beats">
+    <li><span><b>The familiar.</b> A question the viewer can answer on instinct.</span></li>
+    <li><span><b>The contradiction.</b> Something about that answer can’t be right.</span></li>
+    <li><span><b>The toy.</b> A tiny example isolates the mechanism.</span></li>
+    <li><span><b>The reveal.</b> One equation or theorem resolves the contradiction.</span></li>
+    <li><span><b>The evidence.</b> A real study or event, labeled as such, changes the stakes.</span></li>
+    <li><span><b>The return.</b> Back to the opening question, now seen differently.</span></li>
+  </ol>
+  <p>Each film promises one change of mind the viewer could say in a sentence afterward. For the pilot: “the people I know are a biased sample of the world.” Some episodes have no real-world case to stand on. Those skip step 5 openly and say they are pure mathematics, rather than borrowing an event that doesn’t fit.</p>
+
+  <h3>What gets made per episode</h3>
+  <div class="formats">
+    <div><span class="k">Short</span><span>75 to 150 seconds, vertical first. The phenomenon, the mechanism, and one real consequence.</span></div>
+    <div><span class="k">Deep cut</span><span>3 to 5 minutes. The derivation, the counterexample, the caveats, and the paper.</span></div>
+    <div><span class="k">Interactive</span><span>A slider-driven model on the notes site, like the one in the pilot section below.</span></div>
+    <div><span class="k">Study card</span><span>One page: derivation, assumptions, sources, and a self-test.</span></div>
+  </div>
+</section>
+
+<section id="pilot">
+  <div class="wrap">
+    <h2>Pilot: why do your friends have more friends than you?</h2>
+    <p class="sub">Target length 2 minutes 15 seconds. Built from original simulations, anchored in a 2009 campus flu study.</p>
+    <p>Look at the world through friendships and popular people show up over and over, because they sit at the end of many friendships. That bias is a nuisance when it warps what seems normal. It turned out to be useful in one study: friends named by randomly chosen students got the flu earlier, on average, than the students who named them.</p>
+
+    <h3>The four claims, kept apart</h3>
+    <div class="claims">
+      <div class="claim t"><h4>Theorem 1: friendship ends</h4><p>Pick a friendship at random, then one of its two ends. That person’s expected number of friends is at least the average person’s.</p></div>
+      <div class="claim b"><h4>Theorem 2: friends of people</h4><p>Pick a person at random, then one of their friends at random. Averaged over people, that friend also has at least as many friends as the average person. Different weights from Theorem 1, same direction.</p></div>
+      <div class="claim i"><h4>Not a theorem: your own friends</h4><p>“Most people have friends more popular than themselves” is common in real networks but not guaranteed by either result.</p></div>
+      <div class="claim e"><h4>A measurement: one outbreak</h4><p>In the Harvard study of 744 students, the nominated-friends group led by 13.9 days in fitted clinical-diagnosis curves. One campus, one season, observational.</p></div>
+    </div>
+    <p>Theorem 2 is the one the Harvard study actually used. The first draft went from Theorem 1 straight to the study, which a careful viewer would catch. Both theorems take one line each:</p>
+    <div class="math">
+      Theorem 1: <span class="frac"><span>E[<i>K</i><sup>2</sup>]</span><span>E[<i>K</i>]</span></span> = E[<i>K</i>] + <span class="frac"><span>Var(<i>K</i>)</span><span>E[<i>K</i>]</span></span> ≥ E[<i>K</i>]
+    </div>
+    <div class="math">
+      Theorem 2: <span class="frac"><span>1</span><span><i>n</i></span></span> ∑<sub><i>i</i></sub> <span class="frac"><span>1</span><span><i>k<sub>i</sub></i></span></span> ∑<sub><i>j</i>∼<i>i</i></sub> <i>k<sub>j</sub></i> = <span class="frac"><span>1</span><span><i>n</i></span></span> ∑<sub>edges</sub> ( <span class="frac"><span><i>k<sub>i</sub></i></span><span><i>k<sub>j</sub></i></span></span> + <span class="frac"><span><i>k<sub>j</sub></i></span><span><i>k<sub>i</sub></i></span></span> ) ≥ <span class="frac"><span>2<i>m</i></span><span><i>n</i></span></span> = E[<i>K</i>]
+    </div>
+    <p class="small">Theorem 2 needs every person to have at least one friend, and uses <i>x</i> + 1/<i>x</i> ≥ 2. Equality in both holds only when everyone has the same number of friends. One more caveat goes on screen: real nominations aren’t random picks, since people name close friends. The study sampled that way, and the film says so.</p>
+  </div>
+
+  <div class="wide">
+    <figure class="panel" id="demo">
+      <p class="figtitle">Three ways to meet someone in a star</p>
+      <div class="demo">
+        <svg id="star" viewBox="0 0 220 220" role="img" aria-label="A star network: one hub connected to every other person"></svg>
+        <div class="bars" aria-live="polite">
+          <div class="bar"><div class="row"><span>A random person</span><b id="v1">1.78</b></div><div class="track"><div class="fill f1" id="b1"></div></div></div>
+          <div class="bar"><div class="row"><span>One end of a random friendship</span><b id="v2">4.50</b></div><div class="track"><div class="fill f2" id="b2"></div></div></div>
+          <div class="bar"><div class="row"><span>A random friend of a random person</span><b id="v3">7.22</b></div><div class="track"><div class="fill f3" id="b3"></div></div></div>
+        </div>
+      </div>
+      <div class="slider">
+        <label for="k"><span>People around the hub</span><b id="kout">8</b></label>
+        <input id="k" type="range" min="1" max="16" value="8">
+      </div>
+      <figcaption>Average number of friends found by each sampling rule, computed exactly. With <i>k</i> people around the hub: a random person has 2<i>k</i>/(<i>k</i>+1), a friendship end has (<i>k</i>+1)/2, and a friend of a random person has (<i>k</i><sup>2</sup>+1)/(<i>k</i>+1). At <i>k</i> = 1 everyone has one friend and all three agree. In this star the friend-of-a-person rule is the most tilted; in other networks the order of the two biased rules can flip, but both always sit at or above the plain average.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <h3>Shot map and narration</h3>
+    <p class="small">Vertical first. Times are targets; the read decides the cut. Italic lines are narration. Everything must survive sound-off viewing with captions.</p>
+    <div class="shots">
+      <div class="shot"><span class="t">0 to 8</span><div><p class="pic">Big caption: “Your friends have more friends than you.” The cat blinks, offended.</p><p class="vo">“Your friends probably have more friends than you. Rude. But it isn’t about you. It’s about how you met them.”</p></div></div>
+      <div class="shot"><span class="t">8 to 20</span><div><p class="pic">A small network; one person’s friends light up.</p><p class="vo">“Wait. Not everyone can be less popular than their friends. Somebody’s at the top. So what’s going on?”</p></div></div>
+      <div class="shot"><span class="t">20 to 40</span><div><p class="pic">The nine-person star. Fixed geometry, no wobble.</p><p class="vo">“Nine people. One knows everyone. The other eight only know the person in the middle. Pick a random person and you’ll almost always get someone with one friend.”</p></div></div>
+      <div class="shot"><span class="t">40 to 60</span><div><p class="pic">Each friendship gets a faint copy of the person at each end. The hub appears eight times.</p><p class="vo">“Now pick a random friendship and look at one end. The popular person keeps showing up. They’re in eight friendships, so they get eight chances. Everyone else gets one.”</p></div></div>
+      <div class="shot"><span class="t">60 to 78</span><div><p class="pic">One equation. A slider makes friendships more unequal and the gap widens.</p><p class="vo">“That’s the whole trick. Looking through friendships counts popular people more than once. The more unequal the friendships, the bigger the gap.”</p><p class="note">The variance term appears on screen but isn’t read aloud.</p></div></div>
+      <div class="shot"><span class="t">78 to 92</span><div><p class="pic">Third bar appears: a random person, then one of their friends.</p><p class="vo">“And it doesn’t depend on picking friendships. Pick a random person, then ask them to name a friend. On average, that friend is at least as connected as a typical person.”</p><p class="note">On-screen footnote: real people name close friends, not random ones.</p></div></div>
+      <div class="shot"><span class="t">92 to 118</span><div><p class="pic">A campus map, two groups of dots, two epidemic curves. Citation stays on screen: Christakis and Fowler, PLoS ONE, 2010.</p><p class="vo">“In 2009, during the H1N1 flu outbreak, researchers at Harvard tried exactly this. They followed 744 students: some chosen at random, plus friends those students named. In fitted curves of clinical diagnoses, the friends group ran about two weeks ahead. One campus, one outbreak. Not a guarantee.”</p><p class="note">Label: reported study result, not our simulation.</p></div></div>
+      <div class="shot"><span class="t">118 to 135</span><div><p class="pic">Zoom back out to the opening network. The cat fades; the grin stays.</p><p class="vo">“So your friendships don’t just connect you to people. They decide which people you see, what looks normal, and sometimes how early you see something coming.”</p></div></div>
+    </div>
+    <p class="small">Sound: a soft pop for each repeated appearance, a short riser into the equation, and near-silence before the study.</p>
+  </div>
+</section>
+
+<section class="wrap" id="slate">
+  <h2>The first season</h2>
+  <p class="sub">Ten episodes in release order. The first three are the proof of concept.</p>
+  <p class="small">Anchor labels: <span class="tag doc">documented case</span> a real event or experiment; <span class="tag pub">published result</span> a peer-reviewed analysis; <span class="tag math">pure math</span> no real-world case, and the film says so.</p>
+  <ol class="slate">
+    <li class="poc"><div><h3>Why do your friends have more friends than you?</h3><p>Degree, size-biased sampling, two friendship-paradox theorems. About 2:15.</p><p>Feld 1991; Christakis and Fowler 2010.</p><span class="tag poc">proof of concept</span><span class="tag doc">documented case</span></div></li>
+    <li class="poc"><div><h3>Why does a spark usually go nowhere?</h3><p>Branching processes, extinction probability, and why superspreading makes most outbreaks fizzle even when R0 is well above 1. About 1:55.</p><p>Lloyd-Smith et al. 2005, on SARS and other real outbreaks.</p><span class="tag poc">proof of concept</span><span class="tag pub">published result</span></div></li>
+    <li class="poc"><div><h3>Can a minority look like a majority?</h3><p>Majority illusion, degree and attribute correlations. Deep cut: the same people with the same friend counts, rewired into a different society (degree-preserving swaps, assortativity). About 1:40.</p><p>Lerman, Yan and Wu 2016; Newman 2002. Prentice and Miller 1993 as a documented case of students misjudging a campus norm, labeled as a real misperception, not proof that network structure caused it.</p><span class="tag poc">proof of concept</span><span class="tag pub">published result</span></div></li>
+    <li><div><h3>Is the world actually small?</h3><p>Distance, clustering, shortcuts. Why the six-degrees story is half myth, and what a later email experiment found. About 1:35.</p><p>Watts and Strogatz 1998; Dodds, Muhamad and Watts 2003.</p><span class="tag doc">documented case</span></div></li>
+    <li><div><h3>When do random dots become a world?</h3><p>Erdős–Rényi graphs and the sudden giant component. About 1:45.</p><p>Original simulation and classical theory.</p><span class="tag math">pure math</span></div></li>
+    <li><div><h3>Why does winning make you win more?</h3><p>Cumulative advantage, preferential attachment, heavy tails, and the live argument over how common scale-free networks really are. About 1:50.</p><p>Merton 1968; Price 1976; Barabási and Albert 1999; Broido and Clauset 2019.</p><span class="tag pub">published result</span></div></li>
+    <li><div><h3>How do you break a network?</h3><p>Random failure versus targeted attack on hubs. About 1:45.</p><p>Albert, Jeong and Barabási 2000, with its published correction.</p><span class="tag pub">published result</span></div></li>
+    <li><div><h3>Can you find groups that aren’t there?</h3><p>Modularity, null models, and why random graphs can look clustered. About 2:15.</p><p>Zachary 1977, a karate club that really split in two; Guimerà, Sales-Pardo and Amaral 2004.</p><span class="tag doc">documented case</span><span class="tag pub">published result</span></div></li>
+    <li><div><h3>Why did the flu reach some cities first?</h3><p>Mobility networks and effective distance: on a map an outbreak looks random, but measured through air travel it spreads in rings. About 2:00.</p><p>Brockmann and Helbing 2013, using 2009 H1N1 and 2003 SARS.</p><span class="tag pub">published result</span></div></li>
+    <li><div><h3>Can one failure darken a continent?</h3><p>Interdependent networks and cascading failure. About 2:30.</p><p>The 2003 North American blackout (Task Force report) and Buldyrev et al. 2010, which drew on a separate 2003 Italian blackout. The historical cases and the toy model stay visibly separate.</p><span class="tag doc">documented case</span><span class="tag pub">published result</span></div></li>
+  </ol>
+</section>
+
+<section id="figures">
+  <div class="wrap">
+    <h2>Two more figures</h2>
+    <p class="sub">Prototypes for episodes 02 and 03. Every number is computed from the model drawn.</p>
+  </div>
+  <div class="wide">
+    <figure class="panel">
+      <p class="figtitle">Why most sparks die, even when R0 is 3</p>
+      <svg viewBox="0 0 600 380" role="img" aria-labelledby="bt bd">
+<title id="bt">Chance an outbreak dies out, by R0</title>
+<desc id="bd">Two curves. With equal spreaders, extinction falls fast once R0 passes 1: at R0 = 3 it is about 6%. With SARS-like superspreading (k = 0.16) it stays high: about 76% at R0 = 3.</desc>
+<line x1="78.0" y1="300" x2="78.0" y2="306" class="axis"/><text x="78.0" y="330" class="tick" text-anchor="middle">0</text><line x1="201.0" y1="300" x2="201.0" y2="306" class="axis"/><text x="201.0" y="330" class="tick" text-anchor="middle">1</text><line x1="324.0" y1="300" x2="324.0" y2="306" class="axis"/><text x="324.0" y="330" class="tick" text-anchor="middle">2</text><line x1="447.0" y1="300" x2="447.0" y2="306" class="axis"/><text x="447.0" y="330" class="tick" text-anchor="middle">3</text><line x1="570.0" y1="300" x2="570.0" y2="306" class="axis"/><text x="570.0" y="330" class="tick" text-anchor="middle">4</text><line x1="78" y1="300.0" x2="570" y2="300.0" class="grid"/><text x="68" y="307.0" class="tick" text-anchor="end">0%</text><line x1="78" y1="232.5" x2="570" y2="232.5" class="grid"/><text x="68" y="239.5" class="tick" text-anchor="end">25%</text><line x1="78" y1="165.0" x2="570" y2="165.0" class="grid"/><text x="68" y="172.0" class="tick" text-anchor="end">50%</text><line x1="78" y1="97.5" x2="570" y2="97.5" class="grid"/><text x="68" y="104.5" class="tick" text-anchor="end">75%</text><line x1="78" y1="30.0" x2="570" y2="30.0" class="grid"/><text x="68" y="37.0" class="tick" text-anchor="end">100%</text>
+<line x1="201.0" y1="30" x2="201.0" y2="300" class="threshold"/>
+
+<polyline points="78.0,30.0 80.5,30.0 82.9,30.0 85.4,30.0 87.8,30.0 90.3,30.0 92.8,30.0 95.2,30.0 97.7,30.0 100.1,30.0 102.6,30.0 105.1,30.0 107.5,30.0 110.0,30.0 112.4,30.0 114.9,30.0 117.4,30.0 119.8,30.0 122.3,30.0 124.7,30.0 127.2,30.0 129.7,30.0 132.1,30.0 134.6,30.0 137.0,30.0 139.5,30.0 142.0,30.0 144.4,30.0 146.9,30.0 149.3,30.0 151.8,30.0 154.3,30.0 156.7,30.0 159.2,30.0 161.6,30.0 164.1,30.0 166.6,30.0 169.0,30.0 171.5,30.0 173.9,30.0 176.4,30.0 178.9,30.0 181.3,30.0 183.8,30.0 186.2,30.0 188.7,30.0 191.2,30.0 193.6,30.0 196.1,30.0 198.5,30.0 201.0,30.0 203.5,40.5 205.9,50.5 208.4,60.0 210.8,69.0 213.3,77.6 215.8,85.7 218.2,93.5 220.7,100.9 223.1,108.0 225.6,114.7 228.1,121.1 230.5,127.3 233.0,133.2 235.4,138.8 237.9,144.2 240.4,149.4 242.8,154.3 245.3,159.1 247.7,163.6 250.2,168.0 252.7,172.2 255.1,176.2 257.6,180.1 260.0,183.8 262.5,187.4 265.0,190.8 267.4,194.1 269.9,197.3 272.3,200.4 274.8,203.3 277.3,206.2 279.7,208.9 282.2,211.6 284.6,214.2 287.1,216.6 289.6,219.0 292.0,221.3 294.5,223.5 296.9,225.7 299.4,227.8 301.9,229.8 304.3,231.7 306.8,233.6 309.2,235.4 311.7,237.2 314.2,238.9 316.6,240.5 319.1,242.1 321.5,243.6 324.0,245.1 326.5,246.6 328.9,248.0 331.4,249.4 333.8,250.7 336.3,252.0 338.8,253.2 341.2,254.4 343.7,255.6 346.1,256.7 348.6,257.8 351.1,258.9 353.5,259.9 356.0,260.9 358.4,261.9 360.9,262.9 363.4,263.8 365.8,264.7 368.3,265.5 370.7,266.4 373.2,267.2 375.7,268.0 378.1,268.8 380.6,269.6 383.0,270.3 385.5,271.0 388.0,271.7 390.4,272.4 392.9,273.1 395.3,273.7 397.8,274.3 400.3,274.9 402.7,275.5 405.2,276.1 407.6,276.7 410.1,277.2 412.6,277.7 415.0,278.3 417.5,278.8 419.9,279.3 422.4,279.7 424.9,280.2 427.3,280.7 429.8,281.1 432.2,281.5 434.7,282.0 437.2,282.4 439.6,282.8 442.1,283.2 444.5,283.6 447.0,283.9 449.5,284.3 451.9,284.6 454.4,285.0 456.8,285.3 459.3,285.7 461.8,286.0 464.2,286.3 466.7,286.6 469.1,286.9 471.6,287.2 474.1,287.5 476.5,287.8 479.0,288.0 481.4,288.3 483.9,288.5 486.4,288.8 488.8,289.0 491.3,289.3 493.7,289.5 496.2,289.7 498.7,290.0 501.1,290.2 503.6,290.4 506.0,290.6 508.5,290.8 511.0,291.0 513.4,291.2 515.9,291.4 518.3,291.6 520.8,291.8 523.3,291.9 525.7,292.1 528.2,292.3 530.6,292.5 533.1,292.6 535.6,292.8 538.0,292.9 540.5,293.1 542.9,293.2 545.4,293.4 547.9,293.5 550.3,293.6 552.8,293.8 555.2,293.9 557.7,294.0 560.2,294.2 562.6,294.3 565.1,294.4 567.5,294.5 570.0,294.6" class="curve aqua"/>
+<polyline points="80.5,30.0 82.9,30.0 85.4,30.0 87.8,30.0 90.3,30.0 92.8,30.0 95.2,30.0 97.7,30.0 100.1,30.0 102.6,30.0 105.1,30.0 107.5,30.0 110.0,30.0 112.4,30.0 114.9,30.0 117.4,30.0 119.8,30.0 122.3,30.0 124.7,30.0 127.2,30.0 129.7,30.0 132.1,30.0 134.6,30.0 137.0,30.0 139.5,30.0 142.0,30.0 144.4,30.0 146.9,30.0 149.3,30.0 151.8,30.0 154.3,30.0 156.7,30.0 159.2,30.0 161.6,30.0 164.1,30.0 166.6,30.0 169.0,30.0 171.5,30.0 173.9,30.0 176.4,30.0 178.9,30.0 181.3,30.0 183.8,30.0 186.2,30.0 188.7,30.0 191.2,30.0 193.6,30.0 196.1,30.0 198.5,30.0 201.0,30.0 203.5,31.5 205.9,32.9 208.4,34.3 210.8,35.6 213.3,36.9 215.8,38.2 218.2,39.4 220.7,40.6 223.1,41.8 225.6,43.0 228.1,44.1 230.5,45.2 233.0,46.2 235.4,47.3 237.9,48.3 240.4,49.3 242.8,50.3 245.3,51.2 247.7,52.2 250.2,53.1 252.7,54.0 255.1,54.8 257.6,55.7 260.0,56.5 262.5,57.4 265.0,58.2 267.4,59.0 269.9,59.7 272.3,60.5 274.8,61.3 277.3,62.0 279.7,62.7 282.2,63.4 284.6,64.1 287.1,64.8 289.6,65.5 292.0,66.2 294.5,66.8 296.9,67.5 299.4,68.1 301.9,68.7 304.3,69.3 306.8,69.9 309.2,70.5 311.7,71.1 314.2,71.7 316.6,72.3 319.1,72.8 321.5,73.4 324.0,73.9 326.5,74.5 328.9,75.0 331.4,75.5 333.8,76.0 336.3,76.5 338.8,77.0 341.2,77.5 343.7,78.0 346.1,78.5 348.6,79.0 351.1,79.5 353.5,79.9 356.0,80.4 358.4,80.8 360.9,81.3 363.4,81.7 365.8,82.2 368.3,82.6 370.7,83.0 373.2,83.4 375.7,83.9 378.1,84.3 380.6,84.7 383.0,85.1 385.5,85.5 388.0,85.9 390.4,86.3 392.9,86.6 395.3,87.0 397.8,87.4 400.3,87.8 402.7,88.2 405.2,88.5 407.6,88.9 410.1,89.2 412.6,89.6 415.0,89.9 417.5,90.3 419.9,90.6 422.4,91.0 424.9,91.3 427.3,91.6 429.8,92.0 432.2,92.3 434.7,92.6 437.2,93.0 439.6,93.3 442.1,93.6 444.5,93.9 447.0,94.2 449.5,94.5 451.9,94.8 454.4,95.1 456.8,95.4 459.3,95.7 461.8,96.0 464.2,96.3 466.7,96.6 469.1,96.9 471.6,97.2 474.1,97.4 476.5,97.7 479.0,98.0 481.4,98.3 483.9,98.5 486.4,98.8 488.8,99.1 491.3,99.3 493.7,99.6 496.2,99.9 498.7,100.1 501.1,100.4 503.6,100.6 506.0,100.9 508.5,101.1 511.0,101.4 513.4,101.6 515.9,101.9 518.3,102.1 520.8,102.4 523.3,102.6 525.7,102.9 528.2,103.1 530.6,103.3 533.1,103.6 535.6,103.8 538.0,104.0 540.5,104.2 542.9,104.5 545.4,104.7 547.9,104.9 550.3,105.1 552.8,105.4 555.2,105.6 557.7,105.8 560.2,106.0 562.6,106.2 565.1,106.4 567.5,106.7 570.0,106.9" class="curve pink"/>
+<circle cx="447.0" cy="283.9" r="5" class="dot-aqua"/>
+<circle cx="447.0" cy="94.2" r="5" class="dot-pink"/>
+<text x="447.0" y="269.9" class="lab aqua-t" text-anchor="middle">6%</text>
+<text x="447.0" y="128.2" class="lab pink-t" text-anchor="middle">76%</text>
+<text x="268.6" y="30.1" class="lab pink-t">Superspreading</text>
+<text x="287.1" y="192.0" class="lab aqua-t">Equal spreaders</text>
+<text x="324.0" y="366" class="axlab" text-anchor="middle">Average new infections per case (R0)</text>
+</svg>
+      <figcaption>Probability that a chain of infection started by one case eventually dies out, from the standard branching-process equation. Aqua: every case draws its offspring from the same Poisson distribution. Pink: negative binomial offspring with dispersion <i>k</i> = 0.16, the value Lloyd-Smith et al. estimated for SARS. At R0 = 3, about 62% of cases in the pink model infect nobody, so most chains end before the rare superspreader appears. Model curves, not outbreak data.</figcaption>
+    </figure>
+    <figure class="panel">
+      <p class="figtitle">A minority that looks like a majority</p>
+      <svg viewBox="0 0 600 560" role="img" aria-labelledby="mt md">
+<title id="mt">A minority that looks like a majority</title>
+<desc id="md">25 people. 5 marked hubs in a ring; 20 unmarked people, each with three friends, two of them marked hubs. 20% are marked, but 80% of people see mostly marked friends.</desc>
+<line x1="300.0" y1="96.0" x2="398.9" y2="167.9" class="edge"/><line x1="398.9" y1="167.9" x2="361.1" y2="284.1" class="edge"/><line x1="361.1" y1="284.1" x2="238.9" y2="284.1" class="edge"/><line x1="238.9" y1="284.1" x2="201.1" y2="167.9" class="edge"/><line x1="201.1" y1="167.9" x2="300.0" y2="96.0" class="edge"/><line x1="350.6" y1="53.8" x2="300.0" y2="96.0" class="edge"/><line x1="350.6" y1="53.8" x2="398.9" y2="167.9" class="edge"/><line x1="381.2" y1="62.7" x2="300.0" y2="96.0" class="edge"/><line x1="381.2" y1="62.7" x2="398.9" y2="167.9" class="edge"/><line x1="405.5" y1="80.4" x2="300.0" y2="96.0" class="edge"/><line x1="405.5" y1="80.4" x2="398.9" y2="167.9" class="edge"/><line x1="423.4" y1="106.7" x2="300.0" y2="96.0" class="edge"/><line x1="423.4" y1="106.7" x2="398.9" y2="167.9" class="edge"/><line x1="350.6" y1="53.8" x2="381.2" y2="62.7" class="edge"/><line x1="405.5" y1="80.4" x2="423.4" y2="106.7" class="edge"/><line x1="454.7" y1="202.9" x2="398.9" y2="167.9" class="edge"/><line x1="454.7" y1="202.9" x2="361.1" y2="284.1" class="edge"/><line x1="455.7" y1="234.8" x2="398.9" y2="167.9" class="edge"/><line x1="455.7" y1="234.8" x2="361.1" y2="284.1" class="edge"/><line x1="446.4" y1="263.3" x2="398.9" y2="167.9" class="edge"/><line x1="446.4" y1="263.3" x2="361.1" y2="284.1" class="edge"/><line x1="426.8" y1="288.5" x2="398.9" y2="167.9" class="edge"/><line x1="426.8" y1="288.5" x2="361.1" y2="284.1" class="edge"/><line x1="454.7" y1="202.9" x2="455.7" y2="234.8" class="edge"/><line x1="446.4" y1="263.3" x2="426.8" y2="288.5" class="edge"/><line x1="345.0" y1="348.0" x2="361.1" y2="284.1" class="edge"/><line x1="345.0" y1="348.0" x2="238.9" y2="284.1" class="edge"/><line x1="315.0" y1="358.8" x2="361.1" y2="284.1" class="edge"/><line x1="315.0" y1="358.8" x2="238.9" y2="284.1" class="edge"/><line x1="285.0" y1="358.8" x2="361.1" y2="284.1" class="edge"/><line x1="285.0" y1="358.8" x2="238.9" y2="284.1" class="edge"/><line x1="255.0" y1="348.0" x2="361.1" y2="284.1" class="edge"/><line x1="255.0" y1="348.0" x2="238.9" y2="284.1" class="edge"/><line x1="345.0" y1="348.0" x2="315.0" y2="358.8" class="edge"/><line x1="285.0" y1="358.8" x2="255.0" y2="348.0" class="edge"/><line x1="173.2" y1="288.5" x2="238.9" y2="284.1" class="edge"/><line x1="173.2" y1="288.5" x2="201.1" y2="167.9" class="edge"/><line x1="153.6" y1="263.3" x2="238.9" y2="284.1" class="edge"/><line x1="153.6" y1="263.3" x2="201.1" y2="167.9" class="edge"/><line x1="144.3" y1="234.8" x2="238.9" y2="284.1" class="edge"/><line x1="144.3" y1="234.8" x2="201.1" y2="167.9" class="edge"/><line x1="145.3" y1="202.9" x2="238.9" y2="284.1" class="edge"/><line x1="145.3" y1="202.9" x2="201.1" y2="167.9" class="edge"/><line x1="173.2" y1="288.5" x2="153.6" y2="263.3" class="edge"/><line x1="144.3" y1="234.8" x2="145.3" y2="202.9" class="edge"/><line x1="176.6" y1="106.7" x2="201.1" y2="167.9" class="edge"/><line x1="176.6" y1="106.7" x2="300.0" y2="96.0" class="edge"/><line x1="194.5" y1="80.4" x2="201.1" y2="167.9" class="edge"/><line x1="194.5" y1="80.4" x2="300.0" y2="96.0" class="edge"/><line x1="218.8" y1="62.7" x2="201.1" y2="167.9" class="edge"/><line x1="218.8" y1="62.7" x2="300.0" y2="96.0" class="edge"/><line x1="249.4" y1="53.8" x2="201.1" y2="167.9" class="edge"/><line x1="249.4" y1="53.8" x2="300.0" y2="96.0" class="edge"/><line x1="176.6" y1="106.7" x2="194.5" y2="80.4" class="edge"/><line x1="218.8" y1="62.7" x2="249.4" y2="53.8" class="edge"/><circle cx="300.0" cy="96.0" r="13" class="n-pink"/><circle cx="398.9" cy="167.9" r="13" class="n-pink"/><circle cx="361.1" cy="284.1" r="13" class="n-pink"/><circle cx="238.9" cy="284.1" r="13" class="n-pink"/><circle cx="201.1" cy="167.9" r="13" class="n-pink"/><circle cx="350.6" cy="53.8" r="9" class="n-aqua"/><circle cx="381.2" cy="62.7" r="9" class="n-aqua"/><circle cx="405.5" cy="80.4" r="9" class="n-aqua"/><circle cx="423.4" cy="106.7" r="9" class="n-aqua"/><circle cx="454.7" cy="202.9" r="9" class="n-aqua"/><circle cx="455.7" cy="234.8" r="9" class="n-aqua"/><circle cx="446.4" cy="263.3" r="9" class="n-aqua"/><circle cx="426.8" cy="288.5" r="9" class="n-aqua"/><circle cx="345.0" cy="348.0" r="9" class="n-aqua"/><circle cx="315.0" cy="358.8" r="9" class="n-aqua"/><circle cx="285.0" cy="358.8" r="9" class="n-aqua"/><circle cx="255.0" cy="348.0" r="9" class="n-aqua"/><circle cx="173.2" cy="288.5" r="9" class="n-aqua"/><circle cx="153.6" cy="263.3" r="9" class="n-aqua"/><circle cx="144.3" cy="234.8" r="9" class="n-aqua"/><circle cx="145.3" cy="202.9" r="9" class="n-aqua"/><circle cx="176.6" cy="106.7" r="9" class="n-aqua"/><circle cx="194.5" cy="80.4" r="9" class="n-aqua"/><circle cx="218.8" cy="62.7" r="9" class="n-aqua"/><circle cx="249.4" cy="53.8" r="9" class="n-aqua"/>
+<text x="40" y="440" class="lab">Marked: 20%</text>
+<rect x="40" y="452" width="520" height="22" class="track"/>
+<rect x="40" y="452" width="104.0" height="22" class="fill-pink"/>
+<text x="40" y="512" class="lab">Friends mostly marked: 80%</text>
+<rect x="40" y="524" width="520" height="22" class="track"/>
+<rect x="40" y="524" width="416.0" height="22" class="fill-aqua"/>
+</svg>
+      <figcaption>A purpose-built toy, not an observed network. Five marked people (pink) form a ring. Each of the 20 unmarked people (aqua) has three friends: two marked neighbors and one unmarked one. So 20% of people are marked, yet 80% of people, every unmarked person, see mostly marked friends. The marked people themselves see the opposite: two marked friends out of ten.</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <p class="small">The robustness prototype from the first draft should be rebuilt before it’s used: at 50 nodes and 5 removals, random and targeted attacks look almost the same. A few hundred nodes and a removal slider would show the split clearly.</p>
+  </div>
+</section>
+
+<section class="wrap" id="art">
+  <h2>The cat</h2>
+  <p class="sub">A solid silhouette, two big eyes, and a grin that outlasts everything else. No stripes, so the character can’t be mistaken for a famous studio’s version.</p>
+  <div class="states"><figure class="state"><svg viewBox="0 0 200 160" class="cat " aria-hidden="true"><path d="M30,95 C30,58 44,42 56,38 L46,8 L86,31 C95,29 105,29 114,31 L154,8 L144,38 C156,42 170,58 170,95 C170,130 140,150 100,150 C60,150 30,130 30,95 Z" class="head"/><g class="face"><ellipse cx="72" cy="76" rx="15" ry="17" class="eye"/><ellipse cx="128" cy="76" rx="15" ry="17" class="eye"/><ellipse cx="72" cy="77" rx="3" ry="13" class="pupil"/><ellipse cx="128" cy="77" rx="3" ry="13" class="pupil"/></g><clipPath id="g1"><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z"/></clipPath><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z" class="grin"/><line x1="52" y1="90" x2="52" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="64" y1="90" x2="64" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="76" y1="90" x2="76" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="88" y1="90" x2="88" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="100" y1="90" x2="100" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="112" y1="90" x2="112" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="124" y1="90" x2="124" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="136" y1="90" x2="136" y2="140" class="tooth" clip-path="url(#g1)"/><line x1="148" y1="90" x2="148" y2="140" class="tooth" clip-path="url(#g1)"/></svg><figcaption>Idle, listening</figcaption></figure><figure class="state"><svg viewBox="0 0 200 160" class="cat " aria-hidden="true"><path d="M30,95 C30,58 44,42 56,38 L46,8 L86,31 C95,29 105,29 114,31 L154,8 L144,38 C156,42 170,58 170,95 C170,130 140,150 100,150 C60,150 30,130 30,95 Z" class="head"/><g class="face"><ellipse cx="72" cy="80" rx="15" ry="8" class="eye"/><ellipse cx="128" cy="78" rx="15" ry="11" class="eye"/><ellipse cx="72" cy="80" rx="3" ry="6" class="pupil"/><ellipse cx="128" cy="78" rx="3" ry="9" class="pupil"/><path d="M55,70 L89,74" class="lid"/><path d="M111,64 L145,62" class="lid"/></g><clipPath id="g2"><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z"/></clipPath><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z" class="grin"/><line x1="52" y1="90" x2="52" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="64" y1="90" x2="64" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="76" y1="90" x2="76" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="88" y1="90" x2="88" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="100" y1="90" x2="100" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="112" y1="90" x2="112" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="124" y1="90" x2="124" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="136" y1="90" x2="136" y2="140" class="tooth" clip-path="url(#g2)"/><line x1="148" y1="90" x2="148" y2="140" class="tooth" clip-path="url(#g2)"/></svg><figcaption>Skeptical</figcaption></figure><figure class="state"><svg viewBox="0 0 200 160" class="cat " aria-hidden="true"><path d="M30,95 C30,58 44,42 56,38 L46,8 L86,31 C95,29 105,29 114,31 L154,8 L144,38 C156,42 170,58 170,95 C170,130 140,150 100,150 C60,150 30,130 30,95 Z" class="head"/><g class="face"><path d="M58,82 Q72,62 86,82" class="arc"/><path d="M114,82 Q128,62 142,82" class="arc"/></g><clipPath id="g3"><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z"/></clipPath><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z" class="grin"/><line x1="52" y1="90" x2="52" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="64" y1="90" x2="64" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="76" y1="90" x2="76" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="88" y1="90" x2="88" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="100" y1="90" x2="100" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="112" y1="90" x2="112" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="124" y1="90" x2="124" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="136" y1="90" x2="136" y2="140" class="tooth" clip-path="url(#g3)"/><line x1="148" y1="90" x2="148" y2="140" class="tooth" clip-path="url(#g3)"/></svg><figcaption>Delighted</figcaption></figure><figure class="state"><svg viewBox="0 0 200 160" class="cat " aria-hidden="true"><path d="M30,95 C30,58 44,42 56,38 L46,8 L86,31 C95,29 105,29 114,31 L154,8 L144,38 C156,42 170,58 170,95 C170,130 140,150 100,150 C60,150 30,130 30,95 Z" class="head ghost"/><g class="face"></g><clipPath id="g4"><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z"/></clipPath><path d="M38,98 Q100,156 162,98 Q100,124 38,98 Z" class="grin"/><line x1="52" y1="90" x2="52" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="64" y1="90" x2="64" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="76" y1="90" x2="76" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="88" y1="90" x2="88" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="100" y1="90" x2="100" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="112" y1="90" x2="112" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="124" y1="90" x2="124" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="136" y1="90" x2="136" y2="140" class="tooth" clip-path="url(#g4)"/><line x1="148" y1="90" x2="148" y2="140" class="tooth" clip-path="url(#g4)"/></svg><figcaption>Fading: only the grin stays</figcaption></figure></div>
+  <p>The cat is punctuation, not a host. It appears in a lower corner when there is something to react to, and disappears during full-screen plots, dense citations, and delicate derivations. When an episode lands its main idea, the cat fades and the grin stays. That grin is the channel’s logo, end card, and favicon.</p>
+  <p>These four states are a placeholder sketch drawn for this draft. Final character sheets and the animation rig are still to be made.</p>
+  <h3>Voice, picture, captions</h3>
+  <p>Narration is the creator’s own voice, recorded in paragraph-sized takes from a full script, kept conversational. Natural cadence and honest uncertainty are part of the brand. Picture is 1080 × 1920 at 30 fps, action near the center, captions clear of platform overlays. Colors carry meaning across the whole series: aqua for structure and plain sampling, pink for the contradiction and the biased view, warm cream for the idea being selected.</p>
+</section>
+
+<section class="wrap" id="standards">
+  <h2>Rigor as a feature</h2>
+  <p class="sub">Standards a researcher can hold that most short-form channels don’t.</p>
+  <ul class="plain">
+    <li><b>Claim ledger.</b> Every number, date, causal claim, and universal statement is tied to a source and the exact wording it supports.</li>
+    <li><b>Label every picture.</b> Each graphic is marked as original simulation, concept animation, reported study result, or real measurement.</li>
+    <li><b>Assumptions on screen.</b> Finite or infinite, directed or undirected, which sampling rule, which model.</li>
+    <li><b>Counterexample first.</b> Try the cheapest way to break a claim before celebrating it.</li>
+    <li><b>Real people only.</b> No invented individuals; dated, documented events with the right permissions.</li>
+    <li><b>Three voices kept apart.</b> “The authors measured,” “a toy model shows,” and “we think” are never blended.</li>
+  </ul>
+  <h3>Pilot red flags</h3>
+  <p>Each of these is false or unsupported, and none may appear in the film:</p>
+  <ul class="plain">
+    <li>“Everyone has less popular friends.”</li>
+    <li>“The Harvard friends were random friendship ends.” They were friends named by random students, which is Theorem 2, not Theorem 1.</li>
+    <li>“Watching your friends always warns you two weeks early.”</li>
+    <li>“The 2003 blackout followed our cascade animation.”</li>
+  </ul>
+</section>
+
+<section class="wrap" id="plan">
+  <h2>Making it with one person</h2>
+  <p class="sub">The real constraint is the creator’s time, so the plan tests throughput before it spends money.</p>
+  <div class="weeks">
+    <div class="week"><b>Week 1</b><span>Claim ledger, both theorems checked against code, script draft, outside reader lined up.</span></div>
+    <div class="week"><b>Week 2</b><span>Animatic: the 15-second hook and the star sequence, with scratch narration. Sound-off check.</span></div>
+    <div class="week"><b>Week 3</b><span>Final narration, animation, sound, on-screen citations, deep-cut outline.</span></div>
+    <div class="week"><b>Week 4</b><span>Outside review, captions, platform exports, notes page with the interactive, small audience test.</span></div>
+  </div>
+  <p><b>Tools.</b> Manim Community for equations and the sampling sequences. Python and NetworkX for every graph and every number. D3 for the web interactives. One shared palette and graph-style module so episode 02 starts from episode 01’s parts.</p>
+  <p><b>Crew.</b> The creator writes, narrates, animates, and signs off on the science. One outside network scientist reads each script, as a paid read or a swap. A motion designer comes in only if the throughput test fails.</p>
+  <p><b>Throughput test.</b> Episode 02 should take at most half the hours of episode 01. If it doesn’t, the reusable parts aren’t reusable yet, and that gets fixed before episode 03.</p>
+  <h3>Scorecard</h3>
+  <ul class="plain">
+    <li><b>Science:</b> no material errors after outside review; every graphic keeps its label.</li>
+    <li><b>Understanding:</b> a viewer can say the sampling bias in one sentence.</li>
+    <li><b>Picture:</b> the hook makes sense with the sound off.</li>
+    <li><b>Audience:</b> early retention, average watch time, saves, and confused comments, not views alone.</li>
+  </ul>
+  <p><b>Small viewer test.</b> Show 5 to 10 people with mixed backgrounds two rough cuts, one with the cat and one without. Ask them to state the main claim and whether the Harvard result came from a study or a simulation. This checks clarity, not market fit.</p>
+</section>
+
+<section class="wrap" id="sources">
+  <h2>Sources</h2>
+  <p class="small">Article DOIs checked October 2026.</p>
+  <ol class="refs">
+    <li>Feld, S. L. (1991). Why your friends have more friends than you do. <i>American Journal of Sociology</i> 96(6), 1464 to 1477. <a href="https://doi.org/10.1086/229693">doi.org/10.1086/229693</a></li>
+    <li>Christakis, N. A. &amp; Fowler, J. H. (2010). Social network sensors for early detection of contagious outbreaks. <i>PLoS ONE</i> 5(9), e12948. <a href="https://doi.org/10.1371/journal.pone.0012948">doi.org/10.1371/journal.pone.0012948</a></li>
+    <li>Lloyd-Smith, J. O., Schreiber, S. J., Kopp, P. E. &amp; Getz, W. M. (2005). Superspreading and the effect of individual variation on disease emergence. <i>Nature</i> 438, 355 to 359. <a href="https://doi.org/10.1038/nature04153">doi.org/10.1038/nature04153</a></li>
+    <li>Lerman, K., Yan, X. &amp; Wu, X.-Z. (2016). The “majority illusion” in social networks. <i>PLoS ONE</i> 11(2), e0147617. <a href="https://doi.org/10.1371/journal.pone.0147617">doi.org/10.1371/journal.pone.0147617</a></li>
+    <li>Newman, M. E. J. (2002). Assortative mixing in networks. <i>Physical Review Letters</i> 89, 208701. <a href="https://doi.org/10.1103/PhysRevLett.89.208701">doi.org/10.1103/PhysRevLett.89.208701</a></li>
+    <li>Prentice, D. A. &amp; Miller, D. T. (1993). Pluralistic ignorance and alcohol use on campus. <i>Journal of Personality and Social Psychology</i> 64(2), 243 to 256. <a href="https://doi.org/10.1037/0022-3514.64.2.243">doi.org/10.1037/0022-3514.64.2.243</a></li>
+    <li>Watts, D. J. &amp; Strogatz, S. H. (1998). Collective dynamics of ‘small-world’ networks. <i>Nature</i> 393, 440 to 442. <a href="https://doi.org/10.1038/30918">doi.org/10.1038/30918</a></li>
+    <li>Dodds, P. S., Muhamad, R. &amp; Watts, D. J. (2003). An experimental study of search in global social networks. <i>Science</i> 301, 827 to 829. <a href="https://doi.org/10.1126/science.1081058">doi.org/10.1126/science.1081058</a></li>
+    <li>Merton, R. K. (1968). The Matthew effect in science. <i>Science</i> 159, 56 to 63. <a href="https://doi.org/10.1126/science.159.3810.56">doi.org/10.1126/science.159.3810.56</a></li>
+    <li>Price, D. de S. (1976). A general theory of bibliometric and other cumulative advantage processes. <i>Journal of the American Society for Information Science</i> 27(5), 292 to 306. <a href="https://doi.org/10.1002/asi.4630270505">doi.org/10.1002/asi.4630270505</a></li>
+    <li>Barabási, A.-L. &amp; Albert, R. (1999). Emergence of scaling in random networks. <i>Science</i> 286, 509 to 512. <a href="https://doi.org/10.1126/science.286.5439.509">doi.org/10.1126/science.286.5439.509</a></li>
+    <li>Broido, A. D. &amp; Clauset, A. (2019). Scale-free networks are rare. <i>Nature Communications</i> 10, 1017. <a href="https://doi.org/10.1038/s41467-019-08746-5">doi.org/10.1038/s41467-019-08746-5</a></li>
+    <li>Albert, R., Jeong, H. &amp; Barabási, A.-L. (2000). Error and attack tolerance of complex networks. <i>Nature</i> 406, 378 to 382; note the published correction. <a href="https://doi.org/10.1038/35019019">doi.org/10.1038/35019019</a></li>
+    <li>Zachary, W. W. (1977). An information flow model for conflict and fission in small groups. <i>Journal of Anthropological Research</i> 33(4), 452 to 473. <a href="https://doi.org/10.1086/jar.33.4.3629752">doi.org/10.1086/jar.33.4.3629752</a></li>
+    <li>Guimerà, R., Sales-Pardo, M. &amp; Amaral, L. A. N. (2004). Modularity from fluctuations in random graphs and complex networks. <i>Physical Review E</i> 70, 025101. <a href="https://doi.org/10.1103/PhysRevE.70.025101">doi.org/10.1103/PhysRevE.70.025101</a></li>
+    <li>Brockmann, D. &amp; Helbing, D. (2013). The hidden geometry of complex, network-driven contagion phenomena. <i>Science</i> 342, 1337 to 1342. <a href="https://doi.org/10.1126/science.1245200">doi.org/10.1126/science.1245200</a></li>
+    <li>Buldyrev, S. V., Parshani, R., Paul, G., Stanley, H. E. &amp; Havlin, S. (2010). Catastrophic cascade of failures in interdependent networks. <i>Nature</i> 464, 1025 to 1028. <a href="https://doi.org/10.1038/nature08932">doi.org/10.1038/nature08932</a></li>
+    <li>U.S.–Canada Power System Outage Task Force (2004). Final report on the August 14, 2003 blackout. <a href="https://certs.lbl.gov/publications/final-report-august-14-2003-blackout.html">certs.lbl.gov</a></li>
+    <li>Creator course notes: NETS 5116, NETS 6116, PHYS 7335, NETS 7332. The first draft’s link spells the handle “thechesirecat”; confirm the address before publishing.</li>
+    <li>Inspiration: Complexity Explained (<a href="https://complexityexplained.github.io/">complexityexplained.github.io</a>); 3Blue1Brown’s Summer of Math Exposition (<a href="https://www.3blue1brown.com/blog/some2/">3blue1brown.com</a>).</li>
+  </ol>
+</section>
+
+<footer class="wrap">The Cheshire Cat, series proposal. Second draft, October 2026.</footer>
+
+<script>
+(function(){
+  var hero=document.getElementById('top'), btn=document.getElementById('catbtn'), hint=document.getElementById('cathint');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function toggle(){hero.classList.toggle('vanished');hint.textContent=hero.classList.contains('vanished')?'Tap the grin':'Tap the cat';}
+  btn.addEventListener('click',toggle);
+  if(!reduce){setTimeout(function(){if(!hero.classList.contains('vanished'))toggle();},1400);}
+
+  var svg=document.getElementById('star'), input=document.getElementById('k'), NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function draw(k){
+    while(svg.firstChild)svg.removeChild(svg.firstChild);
+    var c=110,r=88,pts=[];
+    for(var i=0;i<k;i++){var t=-Math.PI/2+2*Math.PI*i/k;pts.push([c+r*Math.cos(t),c+r*Math.sin(t)]);}
+    pts.forEach(function(p){svg.appendChild(el('line',{x1:c,y1:c,x2:p[0],y2:p[1],'class':'e'}));});
+    pts.forEach(function(p){svg.appendChild(el('circle',{cx:p[0],cy:p[1],r:7,'class':'leaf'}));});
+    svg.appendChild(el('circle',{cx:c,cy:c,r:Math.min(9+k*0.9,22),'class':'hub'}));
+  }
+  function update(){
+    var k=+input.value, a=2*k/(k+1), b=(k+1)/2, f=(k*k+1)/(k+1), max=16;
+    document.getElementById('kout').textContent=k;
+    document.getElementById('v1').textContent=a.toFixed(2);
+    document.getElementById('v2').textContent=b.toFixed(2);
+    document.getElementById('v3').textContent=f.toFixed(2);
+    document.getElementById('b1').style.width=(100*a/max)+'%';
+    document.getElementById('b2').style.width=(100*b/max)+'%';
+    document.getElementById('b3').style.width=(100*f/max)+'%';
+    svg.setAttribute('aria-label','A star network: one hub with '+k+' friends, each of whom has only the hub as a friend');
+    draw(k);
+  }
+  input.addEventListener('input',update);
+  update();
+})();
+</script>
+</body>
+</html>
