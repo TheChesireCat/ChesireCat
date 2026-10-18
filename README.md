@@ -19,4 +19,5 @@ The first video I'm working on is about the **friendship paradox**: why your fri
 I'll share a draft once I have something worth showing.
 
 Thanks for coming,
+
 Ankit
